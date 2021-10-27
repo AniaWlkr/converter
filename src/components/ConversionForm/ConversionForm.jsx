@@ -1,21 +1,16 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { selectors } from '../../redux/currencyRates';
 import { ReactComponent as ArrowsIcon } from '../../image/icons/arrows.svg';
 import styles from './ConversionForm.module.css';
 
-const ConversionForm = ({ data }) => {
+const ConversionForm = () => {
   const convertCcyInputRef = useRef(null);
   const baseCcyRef = useRef(null);
   const convertCcyRef = useRef(null);
 
-  const ccySaleRatesArr = data.reduce((acc, item) => {
-    if (item.ccy === 'BTC') {
-      const usdData = data.find(item => item.ccy === 'USD');
-      acc.push({ ccy: item.ccy, rate: item.sale * usdData.sale });
-    } else acc.push({ ccy: item.ccy, rate: item.sale });
-    return acc;
-  }, []);
-  ccySaleRatesArr.unshift({ ccy: 'UAH', rate: 1 });
+  const ccySaleRatesArr = useSelector(selectors.getCcySaleRates);
 
   const [baseCcy, setBaseCcy] = useState(ccySaleRatesArr[0].ccy);
   const [convertCcy, setConvertCcy] = useState(ccySaleRatesArr[0].ccy);
@@ -23,6 +18,7 @@ const ConversionForm = ({ data }) => {
   const [convertCcyValue, setConvertCcyValue] = useState(1);
 
   useEffect(() => {
+    console.log('ConversionForm_useEffect');
     conversionCalc();
     baseCcyRef.current.value = baseCcy;
     convertCcyRef.current.value = convertCcy;
@@ -37,20 +33,36 @@ const ConversionForm = ({ data }) => {
     setConvertCcy(temp);
   };
 
-  const onBaseCcyChange = event => {
-    const { value } = event.currentTarget;
-    setBaseCcy(value);
+  const handleFormFieldChange = event => {
+    const { name, value } = event.currentTarget;
+    switch (name) {
+      case 'baseCcyInput':
+        setBaseCcyValue(value);
+        break;
+      case 'baseCcySelect':
+        setBaseCcy(value);
+        break;
+      case 'convertCcySelect':
+        setConvertCcy(value);
+        break;
+      default:
+        console.error('This field is not defined');
+    }
   };
+  // const onBaseCcyChange = event => {
+  //   const { value } = event.currentTarget;
+  //   setBaseCcy(value);
+  // };
 
-  const onConvertCcyChange = event => {
-    const { value } = event.currentTarget;
-    setConvertCcy(value);
-  };
+  // const onConvertCcyChange = event => {
+  //   const { value } = event.currentTarget;
+  //   setConvertCcy(value);
+  // };
 
-  const onBaseCcyInputChange = event => {
-    const { value } = event.currentTarget;
-    setBaseCcyValue(value);
-  };
+  // const onBaseCcyInputChange = event => {
+  //   const { value } = event.currentTarget;
+  //   setBaseCcyValue(value);
+  // };
 
   const conversionCalc = () => {
     const ccyDataFrom = ccySaleRatesArr.find(
@@ -64,26 +76,29 @@ const ConversionForm = ({ data }) => {
     setConvertCcyValue(parseFloat(convertedValue).toFixed(2));
   };
 
+  // input data check - min /max values
+
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
         <div className={styles.inputWrapper}>
-          <label htmlFor="from" className={styles.label}>
+          <label htmlFor="baseCcyInput" className={styles.label}>
             Change
           </label>
           <input
             type="number"
-            id="from"
+            id="baseCcyInput"
+            name="baseCcyInput"
             defaultValue={baseCcyValue}
-            onChange={onBaseCcyInputChange}
+            onChange={handleFormFieldChange}
             className={styles.input}
           />
         </div>
 
         <select
-          name="baseCcy"
+          name="baseCcySelect"
           defaultValue={baseCcy}
-          onChange={onBaseCcyChange}
+          onChange={handleFormFieldChange}
           ref={baseCcyRef}
           className={styles.select}
         >
@@ -99,12 +114,13 @@ const ConversionForm = ({ data }) => {
           <ArrowsIcon className={styles.icon} />
         </button>
         <div className={styles.inputWrapper}>
-          <label htmlFor="to" className={styles.label}>
+          <label htmlFor="convertCcyInput" className={styles.label}>
             Get
           </label>
           <input
             type="number"
-            id="to"
+            id="convertCcyInput"
+            name="convertCcyInput"
             defaultValue={convertCcyValue}
             disabled={true}
             ref={convertCcyInputRef}
@@ -112,9 +128,9 @@ const ConversionForm = ({ data }) => {
           />
         </div>
         <select
-          name="convertCcy"
+          name="convertCcySelect"
           defaultValue={convertCcy}
-          onChange={onConvertCcyChange}
+          onChange={handleFormFieldChange}
           ref={convertCcyRef}
           className={styles.select}
         >
@@ -125,10 +141,6 @@ const ConversionForm = ({ data }) => {
       </form>
     </div>
   );
-};
-
-ConversionForm.propTypes = {
-  data: PropTypes.array,
 };
 
 export default ConversionForm;

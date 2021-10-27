@@ -1,27 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { operations, selectors } from '../../redux/currencyRates';
 import Container from '../../components/Container/Container';
 import Table from '../../components/Table';
 import ConversionForm from '../../components/ConversionForm';
-import apiService from '../../utils/pb-service/api-service';
+import Loader from '../../components/Loader';
 
 const CurrencyPage = () => {
-  const [rates, setRates] = useState([]);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectors.getLoading);
+  const ccyRates = useSelector(selectors.getRates);
 
   useEffect(() => {
-    getRates();
+    dispatch(operations.fetchCurrencyRatesOperation());
   }, []);
-
-  const getRates = () => {
-    apiService
-      .getCurrencyRates()
-      .then(res => setRates(res))
-      .catch(err => console.log(err));
-  };
 
   return (
     <Container>
-      <Table data={rates} />
-      <ConversionForm data={rates} />
+      {isLoading && <Loader />}
+      {ccyRates?.length ? (
+        <>
+          <Table data={ccyRates} />
+          <ConversionForm />
+        </>
+      ) : (
+        <p>Error 404. Data not found</p>
+      )}
     </Container>
   );
 };

@@ -1,7 +1,11 @@
+// import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './Table.module.css';
+// import { selectors } from '../../redux/currencyRates';
 
 const Table = ({ data }) => {
+  // const data = useSelector(selectors.getRates);
+
   const round = number => {
     return parseFloat(number).toFixed(1);
   };
