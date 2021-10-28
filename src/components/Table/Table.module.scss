@@ -1,0 +1,73 @@
+@import '../../stylesheet/breakpoints.scss';
+
+.wrapper {
+  margin-top: 30px;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+  border-radius: 20px;
+
+  font-weight: 400;
+  font-size: 13px;
+
+  border-collapse: collapse;
+  @media screen and (min-width: $tablet) {
+    border-radius: 30px;
+
+    height: 175px;
+
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  background-color: #1d3b53;
+  color: #fff;
+}
+
+.th,
+.td {
+  padding: 10px;
+
+  @media screen and (min-width: $tablet) {
+    padding: 25px;
+  }
+}
+
+.th {
+  font-weight: 700;
+  font-size: 16px;
+
+  @media screen and (min-width: $tablet) {
+    font-size: 24px;
+  }
+
+  color: #081b2b;
+  background-color: #324e63;
+}
+
+.th:first-child {
+  border-top-left-radius: 20px;
+
+  @media screen and (min-width: $tablet) {
+    border-top-left-radius: 30px;
+  }
+}
+
+.th:last-child {
+  border-top-right-radius: 20px;
+
+  @media screen and (min-width: $tablet) {
+    border-top-right-radius: 30px;
+  }
+}
+
+.tr:not(:last-child) {
+  border-bottom: 1px solid #516f87;
+}
+
+.td:not(:last-child),
+.th:not(:last-child) {
+  border-right: 1px solid #516f87;
+}

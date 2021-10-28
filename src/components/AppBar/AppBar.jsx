@@ -1,10 +1,11 @@
-import styles from './AppBar.module.css';
+import styles from './AppBar.module.scss';
+import logo from '../../image/logo192.png';
 
 const AppBar = () => {
   return (
     <header className={styles.header}>
-      <p>Text</p>
-      <p>Logo</p>
+      <img src={logo} alt="logo" className={styles.logo} />
+      <p className={styles.title}>Converter</p>
     </header>
   );
 };

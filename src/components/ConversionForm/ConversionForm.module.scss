@@ -1,0 +1,87 @@
+@import '../../stylesheet/breakpoints.scss';
+
+.wrapper {
+  margin: 50px 0px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @media screen and (min-width: $tablet) {
+    flex-direction: row;
+  }
+}
+
+.formDiv {
+  display: flex;
+  margin-top: 20px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: -25px;
+  font-size: 14px;
+
+  @media screen and (min-width: $tablet) {
+    font-size: 16px;
+  }
+}
+
+.input {
+  padding: 5px 10px;
+  margin-right: 20px;
+  width: 150px;
+
+  font-size: 16px;
+
+  @media screen and (min-width: $tablet) {
+    width: 160px;
+    font-size: 20px;
+  }
+
+  border-radius: 3px;
+  border-style: none outset outset none;
+
+  background-color: #fff;
+}
+
+.button {
+  margin-top: 20px;
+
+  @media screen and (min-width: $tablet) {
+    margin: 0 15px;
+  }
+
+  width: 50px;
+  height: 30px;
+
+  border-style: none;
+  background: none;
+}
+
+.icon {
+  height: 30px;
+  color: #1d3b53;
+}
+
+.select {
+  height: 30px;
+  border-style: none;
+
+  font-weight: 700;
+  font-size: 18px;
+
+  @media screen and (min-width: $tablet) {
+    font-size: 22px;
+  }
+
+  color: #1d3b53;
+  background-color: transparent;
+}

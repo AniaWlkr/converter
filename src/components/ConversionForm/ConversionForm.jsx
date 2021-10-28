@@ -1,9 +1,8 @@
-// import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectors } from '../../redux/currencyRates';
 import { ReactComponent as ArrowsIcon } from '../../image/icons/arrows.svg';
-import styles from './ConversionForm.module.css';
+import styles from './ConversionForm.module.scss';
 
 const ConversionForm = () => {
   const convertCcyInputRef = useRef(null);
@@ -49,20 +48,6 @@ const ConversionForm = () => {
         console.error('This field is not defined');
     }
   };
-  // const onBaseCcyChange = event => {
-  //   const { value } = event.currentTarget;
-  //   setBaseCcy(value);
-  // };
-
-  // const onConvertCcyChange = event => {
-  //   const { value } = event.currentTarget;
-  //   setConvertCcy(value);
-  // };
-
-  // const onBaseCcyInputChange = event => {
-  //   const { value } = event.currentTarget;
-  //   setBaseCcyValue(value);
-  // };
 
   const conversionCalc = () => {
     const ccyDataFrom = ccySaleRatesArr.find(
@@ -81,31 +66,33 @@ const ConversionForm = () => {
   return (
     <div className={styles.wrapper}>
       <form className={styles.form}>
-        <div className={styles.inputWrapper}>
-          <label htmlFor="baseCcyInput" className={styles.label}>
-            Change
-          </label>
-          <input
-            type="number"
-            id="baseCcyInput"
-            name="baseCcyInput"
-            defaultValue={baseCcyValue}
-            onChange={handleFormFieldChange}
-            className={styles.input}
-          />
-        </div>
+        <div className={styles.formDiv}>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="baseCcyInput" className={styles.label}>
+              Change
+            </label>
+            <input
+              type="number"
+              id="baseCcyInput"
+              name="baseCcyInput"
+              defaultValue={baseCcyValue}
+              onChange={handleFormFieldChange}
+              className={styles.input}
+            />
+          </div>
 
-        <select
-          name="baseCcySelect"
-          defaultValue={baseCcy}
-          onChange={handleFormFieldChange}
-          ref={baseCcyRef}
-          className={styles.select}
-        >
-          {ccySaleRatesArr?.map(item => (
-            <option key={item.ccy}>{item.ccy}</option>
-          ))}
-        </select>
+          <select
+            name="baseCcySelect"
+            defaultValue={baseCcy}
+            onChange={handleFormFieldChange}
+            ref={baseCcyRef}
+            className={styles.select}
+          >
+            {ccySaleRatesArr?.map(item => (
+              <option key={item.ccy}>{item.ccy}</option>
+            ))}
+          </select>
+        </div>
         <button
           type="button"
           onClick={switchCcyOption}
@@ -113,31 +100,33 @@ const ConversionForm = () => {
         >
           <ArrowsIcon className={styles.icon} />
         </button>
-        <div className={styles.inputWrapper}>
-          <label htmlFor="convertCcyInput" className={styles.label}>
-            Get
-          </label>
-          <input
-            type="number"
-            id="convertCcyInput"
-            name="convertCcyInput"
-            defaultValue={convertCcyValue}
-            disabled={true}
-            ref={convertCcyInputRef}
-            className={styles.input}
-          />
+        <div className={styles.formDiv}>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="convertCcyInput" className={styles.label}>
+              Get
+            </label>
+            <input
+              type="number"
+              id="convertCcyInput"
+              name="convertCcyInput"
+              defaultValue={convertCcyValue}
+              disabled={true}
+              ref={convertCcyInputRef}
+              className={styles.input}
+            />
+          </div>
+          <select
+            name="convertCcySelect"
+            defaultValue={convertCcy}
+            onChange={handleFormFieldChange}
+            ref={convertCcyRef}
+            className={styles.select}
+          >
+            {ccySaleRatesArr?.map(item => (
+              <option key={item.ccy}>{item.ccy}</option>
+            ))}
+          </select>
         </div>
-        <select
-          name="convertCcySelect"
-          defaultValue={convertCcy}
-          onChange={handleFormFieldChange}
-          ref={convertCcyRef}
-          className={styles.select}
-        >
-          {ccySaleRatesArr?.map(item => (
-            <option key={item.ccy}>{item.ccy}</option>
-          ))}
-        </select>
       </form>
     </div>
   );

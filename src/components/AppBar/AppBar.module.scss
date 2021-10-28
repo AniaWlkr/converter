@@ -1,0 +1,36 @@
+@import '../../stylesheet/breakpoints.scss';
+
+.header {
+  display: flex;
+  padding: 10px;
+
+  @media screen and (min-width: $tablet) {
+    padding: 20px;
+  }
+
+  text-align: left;
+
+  border-bottom: 3px double grey;
+}
+
+.title {
+  padding-left: 10px;
+
+  font-size: 20px;
+  font-weight: 700;
+  font-style: italic;
+
+  @media screen and (min-width: $tablet) {
+    padding-left: 15px;
+
+    font-size: 30px;
+  }
+}
+
+.logo {
+  height: 25px;
+
+  @media screen and (min-width: $tablet) {
+    height: 40px;
+  }
+}

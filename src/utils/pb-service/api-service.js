@@ -14,11 +14,3 @@ function getCurrencyRates() {
 }
 
 export default { getCurrencyRates };
-/** On each 5th api request - imitate server error (create counter, store it in localStorage). After - reset value in localStortage. On error case - hide table, show error message.
- 
-
-Height of layout application - full screen height, without vertical scroll  header, footer - 100px height, all another vertical space - content. */
-
-// Loader ? set before fetch
-// error page i case of data absence
-// adaptive mark-up

@@ -1,5 +1,5 @@
 import 'modern-normalize/modern-normalize.css';
-import './commonStyles.css';
+import './stylesheet/commonStyles.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
